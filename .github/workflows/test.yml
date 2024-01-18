@@ -33,4 +33,4 @@ jobs:
           yes | cpan -T App::cpanminus || true
       - name: Install Perl deps
         run: |
-          cpanm --notest PAR::Packer GD POSIX Config::Tiny Geo::ShapeFile Archive::Zip
+          cpanm --notest -v GD
