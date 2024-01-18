@@ -18,4 +18,4 @@ jobs:
       - run: perl -V
       - name: Install Perl deps
         run: |
-          cpanm --notest -v GD
+          cpan install GD
