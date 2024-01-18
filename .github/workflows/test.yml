@@ -10,27 +10,14 @@ on:
 jobs:
   test:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
-    name: Perl windows with dist msys2
+    name: Perl windows with dist choco
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up MSYS2
-        uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          install: >-
-            base-devel
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-perl
+      - run: perl -MGD -le "say $GD::Version"
       - name: Set up LibGD
         run: pacman -S --needed --noconfirm mingw-w64-x86_64-libgd
       - run: perl -V
-      - name: Install cpanm
-        run:
-          yes | cpan -T App::cpanminus || true
       - name: Install Perl deps
         run: |
-          cpanm --notest -v GD
+          cpanm --notest -v Archive::Zip
