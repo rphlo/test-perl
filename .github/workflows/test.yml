@@ -1,3 +1,4 @@
+
 name: Run Tests
 
 on:
@@ -9,23 +10,30 @@ on:
 jobs:
   test:
     runs-on: windows-latest
-    name: Create executable for windows
+    defaults:
+      run:
+        shell: msys2
+    name: Perl windows with dist msys2
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Perl
-        run: |
-          choco upgrade strawberryperl
-          echo "C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin" >> $GITHUB_PATH
-      - name: perl -V
-        run: perl -V
-      - name: install cpanm and multiple modules
-        uses: perl-actions/install-with-cpanm@stable
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
         with:
-          install: |
-            POSIX
-            GD
-            Config::Tiny
-            Geo::ShapeFile
-            Archive::Zip
-            PAR::Packer
+          update: true
+          install: >-
+            base-devel
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-perl
+            mingw-w64-x86_64-libgd
+      - name: Set up LibGD (MSYS2/MinGW pacman)
+        if: runner.os == 'Windows' && matrix.dist == 'msys2'
+        run: |
+          pacman -S --needed --noconfirm mingw-w64-x86_64-libgd
+      - run: perl -V
+      - name: Install cpanm
+        run:
+          yes | cpan -T App::cpanminus || true
+      - name: Install Perl deps
+        run: |
+          cpanm --notest PAR::Packer GD POSIX Config::Tiny Geo::ShapeFile Archive::Zip
