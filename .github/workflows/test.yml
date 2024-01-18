@@ -25,11 +25,8 @@ jobs:
             base-devel
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-perl
-            mingw64-x86_64-gd
-      - name: Set up LibGD (MSYS2/MinGW pacman)
-        if: runner.os == 'Windows' && matrix.dist == 'msys2'
-        run: |
-          pacman -S --needed --noconfirm mingw-w64-x86_64-libgd
+      - name: Set up LibGD
+        run: pacman -S --needed --noconfirm mingw-w64-x86_64-libgd
       - run: perl -V
       - name: Install cpanm
         run:
