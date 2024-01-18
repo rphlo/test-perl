@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        shell: msys2
+        shell: msys2 {0}
     name: Perl windows with dist msys2
     steps:
       - name: Checkout code
