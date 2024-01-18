@@ -15,8 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - run: perl -MGD -le "say $GD::Version"
-      - name: Set up LibGD
-        run: pacman -S --needed --noconfirm mingw-w64-x86_64-libgd
       - run: perl -V
       - name: Install Perl deps
         run: |
