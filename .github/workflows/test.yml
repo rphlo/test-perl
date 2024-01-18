@@ -26,7 +26,7 @@ jobs:
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-perl
       - name: Set up LibGD
-        run: pacman -S --needed --noconfirm mingw-w64-x86_64-libgd
+        run: pacman -S --needed --noconfirm mingw-w64-libgd
       - run: perl -V
       - name: Install cpanm
         run:
