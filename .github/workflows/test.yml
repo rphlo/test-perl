@@ -26,4 +26,5 @@ jobs:
         with:
           install: |
             GD
+      echo "C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin" >> $GITHUB_PATH
       - run: perl -MGD -e1
