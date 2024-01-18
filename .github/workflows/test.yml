@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up Perl
         run: |
-          choco install --force strawberryperl v5.38.2.2
+          choco install strawberryperl v5.38.2.2
           echo "C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin" >> $GITHUB_PATH
       - name: perl -V
         run: perl -V
