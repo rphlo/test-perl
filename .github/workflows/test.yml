@@ -9,13 +9,26 @@ on:
 
 jobs:
   test:
+    env:
+      PERL_USE_UNSAFE_INC: 0
+      AUTHOR_TESTING: 0
+      AUTOMATED_TESTING: 1
+      RELEASE_TESTING: 0
+      VCPKG_DEFAULT_TRIPLET: x64-windows
     runs-on: windows-latest
-    name: Perl windows with dist choco
+    name: Perl windows
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: perl -MGD -E "say $GD::VERSION"
       - run: perl -V
-      - name: Install Perl deps
-        run: |
-          cpan install GD
+      - name: install cpan deps
+        uses: perl-actions/install-with-cpm@v1.3
+        with:
+          sudo: false
+          install: |
+            ExtUtils::PkgConfig
+            Math::Trig
+            Test::Fork
+            Test::NoWarnings
+            GD
+      - run: perl -MGD -E "say $GD::VERSION"
