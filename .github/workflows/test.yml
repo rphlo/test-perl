@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: perl -MGD -le "say GD::Version"
+      - run: perl -MGD -le "print $GD::VERSION"
       - run: perl -V
       - name: Install Perl deps
         run: |
