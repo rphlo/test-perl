@@ -26,7 +26,7 @@ jobs:
         uses: perl-actions/install-with-cpanm@v1.5
         with:
           install: |
-            Win32
+            Win32::LongPath
             GD
             Archive::Zip
             Config::Tiny
